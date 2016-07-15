@@ -9,9 +9,43 @@
   </head>
   <body>
 
-    <responsive-child>
-      <!-- content goes here -->
+    <responsive-child class="map-container">
+      <div class="outer">
+
+        <div class="hed">Restaurants and hotels are booming in SF</div>
+        <div class="chatter">Sales tax represents how many services the hospitality industry provides and how expensive those services are. Over the years, sales taxes by businesses across the city have been steadily rising, indicative of the city's increasing costs and increasing popularity.</div>
+
+        <div class="display-year"></div>
+        <div class="controls">
+          <div class="start selected"><i class="fa fa-play"></i></div>
+          <div class="pause"><i class="fa fa-pause"></i></div>
+        </div>
+
+        <div class="aspect-ratio-outer">
+          <div class="aspect-ratio-inner">
+
+            <leaflet-map zoom=12 id="map">
+              <tile-layer layer="cartoPositron"></tile-layer>
+            </leaflet-map>
+
+          </div>
+        </div>
+
+        <div class="credit">
+          <div class="entry">Emma O'Neill  &bull; <a href="mailto:eoneill@sfchronicle.com">eoneill@sfchronicle.com</a>   &bull; <a href = "https://twitter.com/emmaruthoneill" target="_blank">@emmaruthoneill</a></div>
+        </div>
+        <div class="source">Source:
+          <em><a href="www.google.com" target="_blank">This the source.</a></em>
+        </div>
+
+      </div>
+
     </responsive-child>
+
+    <script>
+      var taxData = <%= JSON.stringify(csv.joined_restaurant) %>;
+      console.log(taxData);
+    </script>
 
     <script src="app.js" async></script>
     <%= t.include("partials/_foot.html") %>
