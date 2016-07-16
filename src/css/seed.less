@@ -149,8 +149,8 @@ body {
 //   display: none;
 // }
 leaflet-map {
-  width: 900px;
-  height: 600px;
+  width: 800px;
+  height: 800px;
   @media @tablet {
     width: 100%;
   }
@@ -178,4 +178,31 @@ leaflet-map {
 
 .leaflet-control-zoom {
   display: none;
+}
+
+.controls {
+  padding-top: 10px;
+  text-align: center;
+  display: block;
+  // padding-left: 20px;
+}
+.start, .pause {
+  border-radius: 7px;
+  display: inline-block;
+  font-size: 14px;
+  cursor: pointer;
+  color: @dark-blue;
+  background: @light-gray;
+  padding: 5px 10px 4px 10px;
+
+  &:hover {
+    background: @dark-blue;
+    color: white;
+  }
+
+  &.selected {
+    color: @black;
+    cursor: default;
+    background: @dark-blue;
+  }
 }
