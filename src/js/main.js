@@ -1,6 +1,5 @@
 var $ = require("jquery");
 require("component-leaflet-map");
-var d3 = require('d3');
 require("./lib/leaflet-heat.js");
 
 // setting sizes of interactive features
@@ -26,9 +25,9 @@ map.scrollWheelZoom.disable();
 map.keyboard.disable();
 
 if (screen.width <= 480) {
-  map.setView(new L.LatLng(37.75, -122.43), 11);
+  map.setView(new L.LatLng(37.76, -122.43), 11);
 } else {
-  map.setView(new L.LatLng(37.77, -122.44), 13);
+  map.setView(new L.LatLng(37.765, -122.445), 13);
 }
 map.scrollWheelZoom.disable();
 
@@ -60,26 +59,20 @@ taxData.forEach(function(tax) {
 });
 
 var looping = true;
-var heat = L.heatLayer();
 
 var drawMap = function(selected_year,latlongsData) {
 
-  console.log(heat);
-  if (heat != null) {
-    console.log("we are removing the heat layer now");
-    heat.removeFrom(map);
-  }
-  // $(".leaflet-heatmap-layer").removeFrom(map);
+  $( ".leaflet-heatmap-layer" ).each(function( index ) {
+    console.log(this);
+    $(this).remove();
+  });
 
   var duration = 700;
-  // map.on("viewreset",update);
 
   var heat = L.heatLayer(latlongsData, {
       radius: 6,
       blur: 10
     }).addTo(map)
-
-  console.log(heat);
 
 }
 

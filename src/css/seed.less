@@ -71,6 +71,9 @@ body {
 .credit {
   padding-top: 20px;
 }
+.source {
+  padding: 5px 0;
+}
 .source, .credit {
   clear: left;
   // padding-top: 10px;
@@ -78,12 +81,12 @@ body {
   color: @dark-gray;
   font-style: italic;
   font-family: @block-graphics;
-  @media @tablet {
-    padding: 10px 20px;
-  }
-  @media @mobile {
-    padding: 10px;
-  }
+  // @media @tablet {
+  //   padding: 10px 20px;
+  // }
+  // @media @mobile {
+  //   padding: 10px;
+  // }
   &.padded {
     padding-bottom: 40px;
   }
@@ -93,56 +96,24 @@ body {
 #map {
   margin: auto;
 }
-.display-info {
-  font-family: @block-graphics;
-  font-size: 15px;
+.display-wrapper {
   text-align: center;
-  margin: 20px auto;
-  @media @mobile {
-    font-size: 14px;
-  }
+  vertical-align: middle;
+  // text-align:center;
 }
-.info311, .info911 {
-  display: none;
-  &.selected {
-    display: block;
-  }
+.display-text {
+  display:inline;
 }
 .display-year {
+  padding-left: 15px;
   font-family: @bold-graphics;
   font-size: 25px;
   margin: auto;
   text-align:center;
+  display: inline;
   @media @mobile {
     font-size: 20px;
   }
-}
-
-.map-options {
-  .map311, .map911 {
-    cursor: pointer;
-    font-size: 15px;
-    display: inline-block;
-    width: 200px;
-    @media @mobile {
-      width: 140px;
-    }
-    padding: 5px;
-    font-family: @block-graphics;
-    border: 1px black solid;
-    border-radius: 2px;
-    background: lighten(@gray-blue,20%);
-    &.selected {
-      background: lighten(@gray-blue,10%);
-    }
-  }
-  // @media @mobile {
-  //   .map311 {
-  //     margin-bottom: 3px;
-  //   }
-  // }
-  text-align: center;
-  margin-bottom: 10px;
 }
 
 // leaflet-map:not([ready]) {
@@ -181,7 +152,8 @@ leaflet-map {
 }
 
 .controls {
-  padding-top: 10px;
+  padding-top:10px;
+  padding-bottom: 20px;
   text-align: center;
   display: block;
   // padding-left: 20px;
