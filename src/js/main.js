@@ -10,7 +10,18 @@ var margin = {
   bottom: 25,
   left: 40
 };
-var normalize = 2623*10;
+// biggest number is: , smallest number is:
+if (screen.width <= 480) {
+  var normalize = 60000;
+  var radius_val = 4;
+  var blur_val = 6;
+} else {
+  var normalize = 60000;
+  var radius_val = 6;
+  var blur_val = 10;
+}
+
+// var inflation_multipliers = [108.70, 105.37, 103.23, 101.74, 100.12, 100];
 
 //get access to Leaflet and the map
 var element = document.querySelector("leaflet-map");
@@ -39,23 +50,23 @@ var latlongs2014 = [];
 var latlongs2015 = [];
 
 taxData.forEach(function(tax) {
-  latlongs2010.push([tax.AddressFrom_Lat,tax.AddressFrom_Lon,tax.yr2010/normalize]);
-  latlongs2010.push([tax.AddressTo_Lat,tax.AddressTo_Lon,tax.yr2010/normalize]);
+  latlongs2010.push([tax.AddressFrom_Lat,tax.AddressFrom_Lon,tax.norm2010/normalize]);
+  latlongs2010.push([tax.AddressTo_Lat,tax.AddressTo_Lon,tax.norm2010/normalize]);
 
-  latlongs2011.push([tax.AddressFrom_Lat,tax.AddressFrom_Lon,tax.yr2011/normalize]);
-  latlongs2011.push([tax.AddressTo_Lat,tax.AddressTo_Lon,tax.yr2011/normalize]);
+  latlongs2011.push([tax.AddressFrom_Lat,tax.AddressFrom_Lon,tax.norm2011/normalize]);
+  latlongs2011.push([tax.AddressTo_Lat,tax.AddressTo_Lon,tax.norm2011/normalize]);
 
-  latlongs2012.push([tax.AddressFrom_Lat,tax.AddressFrom_Lon,tax.yr2012/normalize]);
-  latlongs2012.push([tax.AddressTo_Lat,tax.AddressTo_Lon,tax.yr2012/normalize]);
+  latlongs2012.push([tax.AddressFrom_Lat,tax.AddressFrom_Lon,tax.norm2012/normalize]);
+  latlongs2012.push([tax.AddressTo_Lat,tax.AddressTo_Lon,tax.norm2012/normalize]);
 
-  latlongs2013.push([tax.AddressFrom_Lat,tax.AddressFrom_Lon,tax.yr2013/normalize]);
-  latlongs2013.push([tax.AddressTo_Lat,tax.AddressTo_Lon,tax.yr2013/normalize]);
+  latlongs2013.push([tax.AddressFrom_Lat,tax.AddressFrom_Lon,tax.norm2013/normalize]);
+  latlongs2013.push([tax.AddressTo_Lat,tax.AddressTo_Lon,tax.norm2013/normalize]);
 
-  latlongs2014.push([tax.AddressFrom_Lat,tax.AddressFrom_Lon,tax.yr2014/normalize]);
-  latlongs2014.push([tax.AddressTo_Lat,tax.AddressTo_Lon,tax.yr2014/normalize]);
+  latlongs2014.push([tax.AddressFrom_Lat,tax.AddressFrom_Lon,tax.norm2014/normalize]);
+  latlongs2014.push([tax.AddressTo_Lat,tax.AddressTo_Lon,tax.norm2014/normalize]);
 
-  latlongs2015.push([tax.AddressFrom_Lat,tax.AddressFrom_Lon,tax.yr2015/normalize]);
-  latlongs2015.push([tax.AddressTo_Lat,tax.AddressTo_Lon,tax.yr2015/normalize]);
+  latlongs2015.push([tax.AddressFrom_Lat,tax.AddressFrom_Lon,tax.norm2015/normalize]);
+  latlongs2015.push([tax.AddressTo_Lat,tax.AddressTo_Lon,tax.norm2015/normalize]);
 });
 
 var looping = true;
@@ -63,15 +74,14 @@ var looping = true;
 var drawMap = function(selected_year,latlongsData) {
 
   $( ".leaflet-heatmap-layer" ).each(function( index ) {
-    console.log(this);
     $(this).remove();
   });
 
   var duration = 700;
 
   var heat = L.heatLayer(latlongsData, {
-      radius: 6,
-      blur: 10
+      radius: radius_val,
+      blur: blur_val
     }).addTo(map)
 
 }
