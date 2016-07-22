@@ -69,6 +69,7 @@ body {
   }
 }
 .credit {
+  padding: 5px 0;
   padding-top: 20px;
 }
 .source {
@@ -88,7 +89,7 @@ body {
   //   padding: 10px;
   // }
   &.padded {
-    padding-bottom: 40px;
+    padding-bottom: 30px;
   }
 }
 
@@ -120,8 +121,10 @@ body {
 //   display: none;
 // }
 leaflet-map {
-  width: 800px;
-  height: 800px;
+  width: 600px;
+  height: 450px;
+  // width: 800px;
+  // height: 800px;
   @media @tablet {
     width: 100%;
   }
@@ -153,7 +156,7 @@ leaflet-map {
 
 .controls {
   padding-top:10px;
-  padding-bottom: 20px;
+  // padding-bottom: 20px;
   text-align: center;
   display: block;
   // padding-left: 20px;
@@ -177,4 +180,63 @@ leaflet-map {
     cursor: default;
     background: @dark-blue;
   }
+}
+
+.gradient-legend {
+  text-align: center;
+  max-width: 400px;
+  @media @mobile {
+    max-width: 180px;
+  }
+  margin: auto;
+  margin-bottom: 40px;
+
+  .gradient-0,.gradient-1,.gradient-2,.gradient-3, .gradient-4, .gradient-5 {
+    display: inline-block;
+    height: 20px;
+    float:left;
+  }
+  .gradient-1 {
+    width: 24%;//40%;
+    background:
+      linear-gradient(90deg,blue,cyan)
+  }
+  .gradient-2 {
+    width: 12%;//20%;
+    background:
+      linear-gradient(90deg,cyan,lime)
+  }
+  .gradient-3 {
+    width: 6%;//10%;
+    background:
+      linear-gradient(90deg,lime,yellow)
+  }
+  .gradient-4 {
+    width: 18%;//30%;
+    background:
+      linear-gradient(90deg,yellow,red)
+  }
+  .gradient-5 {
+    width: 40%;
+    background: red;
+  }
+}
+.gradient-min {
+  float:left;
+  width: 40px;
+}
+.gradient-max {
+  float: right;
+  width: 40px;
+}
+.outer-gradient {
+  text-align: center;
+  font-size: 14px;
+  max-width: 500px;
+  @media @mobile {
+    max-width: 320px;
+  }
+  margin: auto;
+  margin-top: -15px;
+  padding-bottom: 40px;
 }

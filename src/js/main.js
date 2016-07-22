@@ -12,13 +12,16 @@ var margin = {
 };
 // biggest number is: , smallest number is:
 if (screen.width <= 480) {
-  var normalize = 60000;
-  var radius_val = 4;
+  var radius_val = 4.5;
   var blur_val = 6;
+  var max_val = 20000;
 } else {
-  var normalize = 60000;
   var radius_val = 6;
-  var blur_val = 10;
+  var blur_val = 7;
+  var max_val = 1007543.87/radius_val/blur_val;
+  // var radius_val = 6;
+  // var blur_val = 7;
+  // var max_val = 30000;
 }
 
 // var inflation_multipliers = [108.70, 105.37, 103.23, 101.74, 100.12, 100];
@@ -38,7 +41,8 @@ map.keyboard.disable();
 if (screen.width <= 480) {
   map.setView(new L.LatLng(37.76, -122.43), 11);
 } else {
-  map.setView(new L.LatLng(37.765, -122.445), 13);
+  // map.setView(new L.LatLng(37.765, -122.445), 13);
+  map.setView(new L.LatLng(37.765, -122.445), 12);
 }
 map.scrollWheelZoom.disable();
 
@@ -50,23 +54,41 @@ var latlongs2014 = [];
 var latlongs2015 = [];
 
 taxData.forEach(function(tax) {
-  latlongs2010.push([tax.AddressFrom_Lat,tax.AddressFrom_Lon,tax.norm2010/normalize]);
-  latlongs2010.push([tax.AddressTo_Lat,tax.AddressTo_Lon,tax.norm2010/normalize]);
+  // latlongs2010.push([tax.AddressFrom_Lat,tax.AddressFrom_Lon,tax.Log2010_v2]);
+  // latlongs2010.push([tax.AddressTo_Lat,tax.AddressTo_Lon,tax.Log2010_v2]);
+  //
+  // latlongs2011.push([tax.AddressFrom_Lat,tax.AddressFrom_Lon,tax.Log2011_v2]);
+  // latlongs2011.push([tax.AddressTo_Lat,tax.AddressTo_Lon,tax.Log2011_v2]);
+  //
+  // latlongs2012.push([tax.AddressFrom_Lat,tax.AddressFrom_Lon,tax.Log2012_v2]);
+  // latlongs2012.push([tax.AddressTo_Lat,tax.AddressTo_Lon,tax.Log2012_v2]);
+  //
+  // latlongs2013.push([tax.AddressFrom_Lat,tax.AddressFrom_Lon,tax.Log2013_v2]);
+  // latlongs2013.push([tax.AddressTo_Lat,tax.AddressTo_Lon,tax.Log2013_v2]);
+  //
+  // latlongs2014.push([tax.AddressFrom_Lat,tax.AddressFrom_Lon,tax.Log2014_v2]);
+  // latlongs2014.push([tax.AddressTo_Lat,tax.AddressTo_Lon,tax.Log2014_v2]);
+  //
+  // latlongs2015.push([tax.AddressFrom_Lat,tax.AddressFrom_Lon,tax.Log2015_v2]);
+  // latlongs2015.push([tax.AddressTo_Lat,tax.AddressTo_Lon,tax.Log2015_v2]);
 
-  latlongs2011.push([tax.AddressFrom_Lat,tax.AddressFrom_Lon,tax.norm2011/normalize]);
-  latlongs2011.push([tax.AddressTo_Lat,tax.AddressTo_Lon,tax.norm2011/normalize]);
+  latlongs2010.push([tax.AddressFrom_Lat,tax.AddressFrom_Lon,tax.minusMin2010]);
+  latlongs2010.push([tax.AddressTo_Lat,tax.AddressTo_Lon,tax.minusMin2010]);
 
-  latlongs2012.push([tax.AddressFrom_Lat,tax.AddressFrom_Lon,tax.norm2012/normalize]);
-  latlongs2012.push([tax.AddressTo_Lat,tax.AddressTo_Lon,tax.norm2012/normalize]);
+  latlongs2011.push([tax.AddressFrom_Lat,tax.AddressFrom_Lon,tax.minusMin2011]);
+  latlongs2011.push([tax.AddressTo_Lat,tax.AddressTo_Lon,tax.minusMin2011]);
 
-  latlongs2013.push([tax.AddressFrom_Lat,tax.AddressFrom_Lon,tax.norm2013/normalize]);
-  latlongs2013.push([tax.AddressTo_Lat,tax.AddressTo_Lon,tax.norm2013/normalize]);
+  latlongs2012.push([tax.AddressFrom_Lat,tax.AddressFrom_Lon,tax.minusMin2012]);
+  latlongs2012.push([tax.AddressTo_Lat,tax.AddressTo_Lon,tax.minusMin2012]);
 
-  latlongs2014.push([tax.AddressFrom_Lat,tax.AddressFrom_Lon,tax.norm2014/normalize]);
-  latlongs2014.push([tax.AddressTo_Lat,tax.AddressTo_Lon,tax.norm2014/normalize]);
+  latlongs2013.push([tax.AddressFrom_Lat,tax.AddressFrom_Lon,tax.minusMin2013]);
+  latlongs2013.push([tax.AddressTo_Lat,tax.AddressTo_Lon,tax.minusMin2013]);
 
-  latlongs2015.push([tax.AddressFrom_Lat,tax.AddressFrom_Lon,tax.norm2015/normalize]);
-  latlongs2015.push([tax.AddressTo_Lat,tax.AddressTo_Lon,tax.norm2015/normalize]);
+  latlongs2014.push([tax.AddressFrom_Lat,tax.AddressFrom_Lon,tax.minusMin2014]);
+  latlongs2014.push([tax.AddressTo_Lat,tax.AddressTo_Lon,tax.minusMin2014]);
+
+  latlongs2015.push([tax.AddressFrom_Lat,tax.AddressFrom_Lon,tax.minusMin2015]);
+  latlongs2015.push([tax.AddressTo_Lat,tax.AddressTo_Lon,tax.minusMin2015]);
 });
 
 var looping = true;
@@ -81,7 +103,9 @@ var drawMap = function(selected_year,latlongsData) {
 
   var heat = L.heatLayer(latlongsData, {
       radius: radius_val,
-      blur: blur_val
+      blur: blur_val,
+      max:max_val,
+      gradient : {0:"#515A9E",.4:"blue",.6:"cyan",.7:"lime",.8:"yellow",1:"red"}
     }).addTo(map)
 
 }
@@ -111,7 +135,6 @@ var tick = function() {
   }
 
   drawMap(years[i],current_data);
-  console.log(years[i]);
 	updateInfo(years[i]);
   i = (i + 1) % years.length;
   loop = setTimeout(tick, i == 0 ? 1700 : 1000);

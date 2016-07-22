@@ -8,19 +8,34 @@
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
     <%= t.include("partials/_head.html") %>
   </head>
+  <script type="text/javascript" src="http://projects.sfchronicle.com/shared/js/pym.min.js"></script>
   <body>
 
     <responsive-child class="map-container">
-      <div class="outer">
 
-        <div class="hed">Restaurants and hotels are booming in SF</div>
-        <div class="chatter">Sales tax represents how many services the hospitality industry provides and how expensive those services are. Over the years, sales taxes by businesses across the city have been steadily rising, indicative of the city's increasing costs and increasing popularity.</div>
+        <div class="hed">Where are San Franciscans going out to eat and drink?</div>
+        <div class="chatter">This heat map measures the sales tax revenue that hotels and restaurants on 32 commercial corridors paid to the City and County of San Francisco between 2010 and 2015. Some of these corridors have grown quickly; others have stagnated.</div>
 
         <div class="display-wrapper"><div class="display-text">Cumulative sales taxes paid in:</div><div class="display-year"></div></div>
         <div class="controls">
           <div class="start selected"><i class="fa fa-play"></i></div>
           <div class="pause"><i class="fa fa-pause"></i></div>
         </div>
+
+        <div class="outer-gradient">
+          <div class="gradient-min">$2.7K</div>
+          <div class="gradient-max">$1M</div>
+          <div class="gradient-legend">
+            <div class="gradient-boxes">
+              <div class="gradient-1"></div>
+              <div class="gradient-2"></div>
+              <div class="gradient-3"></div>
+              <div class="gradient-4"></div>
+              <div class="gradient-5"></div>
+            </div>
+          </div>
+        </div>
+
 
         <div class="aspect-ratio-outer">
           <div class="aspect-ratio-inner">
@@ -35,16 +50,19 @@
         <div class="credit">
           <div class="entry">Emma O'Neill  &bull; <a href="mailto:eoneill@sfchronicle.com">eoneill@sfchronicle.com</a>   &bull; <a href = "https://twitter.com/emmaruthoneill" target="_blank">@emmaruthoneill</a></div>
         </div>
-        <div class="source">Source:
-          <em><a href="www.google.com" target="_blank">This the source.</a></em>
+        <div class="source">About the data: Because the data includes tax revenue from both hotels and restaurants, the Financial District and Union Square areas grow brightest. The neighborhood stretches are more likely to measure the restaurant industry there alone.</div>
+        <div class="source padded">Source:
+          <em>San Francisco Controller's Office of Budget & Analysis</em>
         </div>
 
-      </div>
 
     </responsive-child>
 
     <script>
       var taxData = <%= JSON.stringify(csv.Joined) %>;
+    </script>
+    <script>
+        var pymChild = new pym.Child({polling: 500});
     </script>
 
     <script src="app.js" async></script>
